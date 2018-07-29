@@ -4,8 +4,9 @@ namespace App\Modules\Catalogs\Repositories;
 
 use App\Modules\Catalogs\Contracts\ICatalogRepository;
 use App\Modules\Catalogs\Models\Brand;
+use App\Modules\BaseRepository;
 
-class CatalogRepository implements ICatalogRepository {
+class CatalogRepository extends BaseRepository implements ICatalogRepository {
 
     /*
     |--------------------------------------------------------------------------
@@ -27,12 +28,46 @@ class CatalogRepository implements ICatalogRepository {
         $this->brand = $brand;
     }
 
-    public function getBrands($page, $perPage, $search)
+    public function getBrands($filter, $orderBy, $pagination)
     {
-        if(empty($perPage)) {
-            $perPage = 10;
+        $search = $filter['description'];
+        $active = $filter['active'];
+
+        $query = $this->brand->where('description', 'ILIKE', "%$search%");
+
+        if ($active === true) {
+            $query->WhereNull('deleted_at');
+        } else if ($active === false){
+            $query->WhereNotNull('deleted_at');
         }
 
-        return $this->brand->where('description', 'ILIKE', "%$search%")->paginate($perPage);
+        $query->orderBy($orderBy['column'], $orderBy['direction']);
+
+        return $query->paginate($pagination['itemsPerPage']);
     }
+
+    public function createBrand($brandDto)
+    {
+        $brand = [
+            'description' => $brandDto['description']
+        ];
+
+        $this->setCCreateUpdateValues($brand, !!$brandDto['active']);
+
+        $this->brand->create($brand);
+
+        $this->setCreateUpdateValues($brand);
+
+
+        JWTAuth::parseToken();
+
+        if ($company->hasErrors()) {
+            return $company;
+        }
+
+        $brand = new $this->br;
+        return $query->paginate($pagination['itemsPerPage']);
+    }
+
+
 }

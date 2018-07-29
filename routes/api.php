@@ -16,7 +16,6 @@ use Illuminate\Http\Request;
 // Global api
 /*Route::group(['prefix' => 'v1', 'namespace' => 'Http\Controllers\Api'], function() {
     Route::group(['prefix' => 'v1', 'namespace' => 'v1'], function() {
-        Route::get('authenticate', ['uses' => 'AuthenticationController@authenticate']);
     });
 });*/
 
@@ -26,26 +25,15 @@ use Illuminate\Http\Request;
 });*/
 
 Route::group(['prefix' => 'v1', 'namespace' => 'Api\v1'], function() {
-    //Shows
-    /*Route::get('shows', 'ShowsController@getPaginated');
-    Route::get('shows/all', 'ShowsController@getAll');
-    Route::get('shows/poster', 'ShowsController@getPoster');
-
-    //Users
-    Route::post('users/context', 'UsersController@context');
-    Route::post('users/facebook-login', 'UsersController@facebookLogin');
-    Route::post('users/link-user-show', 'UsersController@linkUserShow');
-
-    Route::post('users/remove-spoilers', 'UsersController@removeSpoilers');
-
-    //Spoilers
-    Route::post('spoilers', 'SpoilersController@createSpoiler');
-    Route::post('spoilers/madness', 'SpoilersController@setMadness');
-    Route::get('spoilers/get-spoilers', 'SpoilersController@getSpoilers');*/
-        //Catalogs
-    Route::get('catalogs/get-brands', 'CatalogsController@getBrands');
-
     Route::group(['prefix' => 'authentication', 'namespace' => 'Authentication'], function() {
         Route::get('authenticate', ['uses' => 'AuthenticationController@authenticate']);
+    });
+});
+
+Route::group(['middleware' => ['jwt.auth']], function() {
+    Route::group(['prefix' => 'v1', 'namespace' => 'Api\v1'], function() {
+        //Catalogs
+        Route::post('brands', 'CatalogsController@getBrands');
+        Route::post('create-brand', 'CatalogsController@createBrand');
     });
 });

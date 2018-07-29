@@ -13,12 +13,16 @@ class Brand extends Model {
 	 */
     protected $primaryKey = 'id';
 
-    protected $table = 'brands';
+	protected $table = 'brands';
+	
+	protected static $rules = [
+        'description' => 'required'
+    ];
 
 	/**
 	 * The attributes that are mass assignable.
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['description'];
+	protected $fillable = ['description', 'created_at', 'created_by', 'updated_by', 'deleted_at'];
 }

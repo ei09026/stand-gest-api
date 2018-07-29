@@ -2,12 +2,13 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Modules\Catalogs\Contracts\ICatalogService;
+use App\Http\Controllers\Api\ApiController;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use \Response;
-use App\Http\Controllers\Controller;
 
 
-class CatalogsController extends Controller {
+class CatalogsController extends ApiController {
 
 	/*
 	|--------------------------------------------------------------------------
@@ -35,11 +36,31 @@ class CatalogsController extends Controller {
 	 */
 	public function getBrands(Request $request)
 	{
-		dd('teste');
-        $page = $request->input('page');
-        $perPage = $request->input('perPage');
-        $search = $request->input('search');
+		$filter = [
+			'description' => $request->input('filter.description'),
+			'active' => $request->input('filter.active')
+		];
+		
+		$orderBy = [
+			'column' => $request->input('orderBy.column'),
+			'direction' => $request->input('orderBy.direction')
+		];
 
-        return $this->catalogService->getBrands($page, $perPage, $search);
+		$pagination = [
+			'itemsPerPage' => $request->input('pagination.itemsPerPage'),
+			'page' => $request->input('pagination.page')
+		];
+
+        return $this->respondSuccess($this->catalogService->getBrands($filter, $orderBy, $pagination));
 	}
+
+	public function createBrand(Request $request)
+	{	
+		$brandDto = [
+			'description' => $request->input('filter.description'),
+			'active' => $request->input('filter.active')
+		];
+
+        return $this->respondSuccess($this->catalogService->createBrand($brandDto));
+	}	
 }

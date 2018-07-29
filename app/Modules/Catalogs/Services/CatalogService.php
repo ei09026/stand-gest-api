@@ -31,8 +31,13 @@ class CatalogService implements ICatalogService {
      *
      * @return Response
      */
-    public function getBrands($page, $perPage, $search)
+    public function getBrands($filter, $orderBy, $pagination)
     {
-        return $this->catalogRepository->getBrands($page, $perPage, $search);
+        return $this->catalogRepository->getBrands($filter, $orderBy, $pagination);
     }
+
+    public function createBrand($brandDto)
+    {
+        return $this->catalogRepository->createBrand($brandDto);
+    }    
 }
