@@ -57,8 +57,8 @@ class CatalogsController extends ApiController {
 	public function createBrand(Request $request)
 	{	
 		$brandDto = [
-			'description' => $request->input('filter.description'),
-			'active' => $request->input('filter.active')
+			'description' => $request->input('data.description'),
+			'active' => $request->input('data.active')
 		];
 
         return $this->respondSuccess($this->catalogService->createBrand($brandDto));

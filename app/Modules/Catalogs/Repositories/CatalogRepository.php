@@ -52,22 +52,18 @@ class CatalogRepository extends BaseRepository implements ICatalogRepository {
             'description' => $brandDto['description']
         ];
 
-        $this->setCCreateUpdateValues($brand, !!$brandDto['active']);
+        $brand = $this->setCCreateUpdateDeleteValues($brand, !$brandDto['active']);
 
         $this->brand->create($brand);
 
-        $this->setCreateUpdateValues($brand);
+        return $brand;
 
+        /*
 
-        JWTAuth::parseToken();
-
-        if ($company->hasErrors()) {
-            return $company;
+        if ($brand->hasErrors()) {
+            return $brand;
         }
 
-        $brand = new $this->br;
-        return $query->paginate($pagination['itemsPerPage']);
+        return $query->paginate($pagination['itemsPerPage']);*/
     }
-
-
 }
