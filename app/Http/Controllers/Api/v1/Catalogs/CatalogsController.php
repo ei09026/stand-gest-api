@@ -56,6 +56,19 @@ class CatalogsController extends ApiController {
 
 	public function createBrand(Request $request)
 	{	
+		$messages = array(
+			'*.description.unique' => 'URL is required.'
+		);
+
+		$validator = \Validator::make($request->all(), [
+            '*.description' => 'unique:brands'
+        ], $messages);
+
+		if ($validator->fails())
+        {
+            return response()->json(['errors'=>$validator->errors()->all()]);
+        }
+
 		$brandDto = [
 			'description' => $request->input('data.description'),
 			'active' => $request->input('data.active')

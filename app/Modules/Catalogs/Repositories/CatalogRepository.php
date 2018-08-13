@@ -5,6 +5,7 @@ namespace App\Modules\Catalogs\Repositories;
 use App\Modules\Catalogs\Contracts\ICatalogRepository;
 use App\Modules\Catalogs\Models\Brand;
 use App\Modules\BaseRepository;
+use Paginator;
 
 class CatalogRepository extends BaseRepository implements ICatalogRepository {
 
@@ -43,7 +44,7 @@ class CatalogRepository extends BaseRepository implements ICatalogRepository {
 
         $query->orderBy($orderBy['column'], $orderBy['direction']);
 
-        return $query->paginate($pagination['itemsPerPage']);
+        return $query->paginate($pagination['itemsPerPage'], ['*'], 'page', $pagination['page']);
     }
 
     public function createBrand($brandDto)

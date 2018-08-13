@@ -16,7 +16,7 @@ class Brand extends Model {
 	protected $table = 'brands';
 	
 	protected static $rules = [
-        'description' => 'required'
+        'description' => 'required|unique:brands'
     ];
 
 	/**
