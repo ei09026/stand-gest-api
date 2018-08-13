@@ -29,4 +29,11 @@ class BaseRepository {
 
         return $model;
     }
+
+    protected function clearDeletedValues($model) {
+        $model['deleted_at'] = null;
+        $model['deleted_by'] = null;
+
+        return $model;
+    }
 }

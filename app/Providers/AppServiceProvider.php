@@ -38,5 +38,15 @@ class AppServiceProvider extends ServiceProvider
             'App\Modules\Brands\Contracts\IBrandRepository',
             'App\Modules\Brands\Repositories\BrandRepository'
         );
+        
+        $this->app->bind(
+            'App\Modules\FuelTypes\Contracts\IFuelTypeRepository',
+            'App\Modules\FuelTypes\Repositories\FuelTypeRepository'
+        );
+
+        $this->app->bind(
+            'App\Modules\Users\Contracts\IUserRepository',
+            'App\Modules\Users\Repositories\UserRepository'
+        );
     }
 }

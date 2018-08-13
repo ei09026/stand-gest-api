@@ -31,8 +31,18 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api\v1'], function() {
 });
 
 Route::group(['middleware' => ['jwt.auth']], function() {
+    Route::group(['prefix' => 'v1', 'namespace' => 'Api\v1\Users'], function() {
+        //Catalogs
+        Route::post('users', 'UsersController@postIndex');
+    });
+
     Route::group(['prefix' => 'v1', 'namespace' => 'Api\v1\Brands'], function() {
         //Catalogs
         Route::post('brands', 'BrandsController@postIndex');
+    });
+
+    Route::group(['prefix' => 'v1', 'namespace' => 'Api\v1\FuelTypes'], function() {
+        //Catalogs
+        Route::post('fuel-types', 'FuelTypesController@postIndex');
     });
 });

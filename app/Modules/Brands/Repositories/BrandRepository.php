@@ -67,8 +67,10 @@ class BrandRepository extends BaseRepository implements IBrandRepository {
         
         $brand = $this->setUCreateUpdateDeletedValues($brand);
 
-        if($brandDto['active'] === false) {
+        if ($brandDto['active'] === false) {
             $brand = $this->setDeletedValues($brand);
+        } else {
+            $brand = $this->clearDeletedValues($brand);
         }
         
         $brand->save();

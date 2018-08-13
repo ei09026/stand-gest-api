@@ -1,14 +1,14 @@
 <?php
-namespace App\Http\Controllers\Api\v1\Brands;
+namespace App\Http\Controllers\Api\v1\FuelTypes;
 
-use App\Modules\Brands\Contracts\IBrandRepository;
+use App\Modules\FuelTypes\Contracts\IFuelTypeRepository;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use \Response;
 
 
-class BrandsController extends ApiController {
+class FuelTypesController extends ApiController {
 
 	/*
 	|--------------------------------------------------------------------------
@@ -18,26 +18,26 @@ class BrandsController extends ApiController {
 	|
 	*/
 
-	private $brandRepository;
+	private $fuelTypeRepository;
 
 	/**
 	 * Create a new controller instance.
 	 *
 	 * @return void
 	 */
-	public function __construct(IBrandRepository $brandRepository)
+	public function __construct(IFuelTypeRepository $fuelTypeRepository)
 	{
-	    $this->brandRepository = $brandRepository;
+	    $this->fuelTypeRepository = $fuelTypeRepository;
 	}
 
-	private function validateBrand($request)
+	private function validateFuelType($request)
 	{
 		$messages = array(
-			'*.description.unique' => trans('brands/model.brand-already-exists')
+			'*.description.unique' => trans('fuelTypes/model.fuel-type-already-exists')
 		);
 
 		return \Validator::make($request->all(), [
-			'*.description' => 'unique:brands'
+			'*.description' => 'unique:fuel-types'
 		], $messages);
 	}
 
@@ -62,31 +62,31 @@ class BrandsController extends ApiController {
 			'page' => $request->input('pagination.page')
 		];
 
-        return $this->respondSuccess($this->brandRepository->getBrands($filter, $orderBy, $pagination));
+        return $this->respondSuccess($this->fuelTypeRepository->getFuelTypes($filter, $orderBy, $pagination));
 	}
 
 	public function create(Request $request)
 	{
-		$brandDto = [
+		$fuelTypeDto = [
 			'description' => $request->input('data.description'),
 			'active' => $request->input('data.active')
 		];
 
-		$validator = $this->validateBrand($request);
+		$validator = $this->validateFuelType($request);
 
 		if ($validator->fails())
 		{
 			return $this->respondFail('error', $validator->errors()->all());
 		}
 
-		return $this->respondSuccess($this->brandRepository->create($brandDto));
+		return $this->respondSuccess($this->fuelTypeRepository->create($fuelTypeDto));
 	}
 
 	public function update(Request $request)
 	{
 		$filter = $request->input('filter');
 
-		$brandDto = [
+		$fuelTypeDto = [
 			'description' => $request->input('data.description'),
 			'active' => $request->input('data.active')
 		];
@@ -94,7 +94,7 @@ class BrandsController extends ApiController {
 		if (!empty($filter)) {
 			$id = $filter['id'];
 
-			return $this->respondSuccess($this->brandRepository->update($id, $brandDto));
+			return $this->respondSuccess($this->fuelTypeRepository->update($id, $fuelTypeDto));
 		} else { // create
 			return $this->respondFail('error', 'Id not found');
 		}
