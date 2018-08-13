@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Exception;
 use Response;
 use App;
@@ -24,14 +25,6 @@ class ApiController extends Controller {
         return $this;
     }
     
-    /**
-     * 
-     * @deprecated
-     */
-    protected function response($data = [], $headers = []) {
-        return $this->respond($data, $headers);
-    }
-
     protected function respondSuccess($data) {        
         return $this->respond([
             'status' => 'success',
@@ -52,27 +45,30 @@ class ApiController extends Controller {
     protected function respond($data = [], $headers = []) {
         return Response::json($data, $this->getStatusCode(), $headers);
     }
-    
-    protected function respondWithError($message = null, $headers = []) {
-        if($this->getStatusCode() == 500)
-            throw new Exception($message);
-        
-        throw new HttpException($this->getStatusCode(), $message, null, $headers);
+
+    public function create(Request $request) {
+        return $this->missingMethod();
     }
-    
-    protected function respondInternalError($message = 'Internal error!') {
-        return $this->setStatusCode(500)->respondWithError($message);
+
+    public function retrieve(Request $request) {
+        return $this->missingMethod();
     }
-    
-    protected function respondNotFound($message = 'Not found!') {
-        return $this->setStatusCode(404)->respondWithError($message);
+
+    public function update(Request $request) {
+        return $this->missingMethod();
     }
-    
-    protected function respondBadRequest($message = 'Bad request!') {
-        return $this->setStatusCode(400)->respondWithError($message);
+
+    public function delete(Request $request) {
+        return $this->missingMethod();
     }
-    
-    protected function respondForbidden($message = 'Forbidden!') {
-        return $this->setStatusCode(403)->respondWithError($message);
+
+    public function postIndex(Request $request) {
+        switch ($request->input('method')) {
+            case 'create': return $this->create($request);
+            case 'retrieve': return $this->retrieve($request);
+            case 'update': return $this->update($request);
+            case 'delete': return $this->delete($request);
+            default: return $this->missingMethod();
+        }
     }
 }

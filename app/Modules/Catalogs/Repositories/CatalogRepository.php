@@ -67,4 +67,13 @@ class CatalogRepository extends BaseRepository implements ICatalogRepository {
 
         return $query->paginate($pagination['itemsPerPage']);*/
     }
+
+    public function updateBrand($id, $brandDto) {
+        $brand = $this->brand->where('id', $id)->get();
+
+        $brand = $this->setUCreateUpdateDeletedValues($brand);
+        $brand->save();
+
+        return $brand;
+    }
 }

@@ -39,5 +39,10 @@ class CatalogService implements ICatalogService {
     public function createBrand($brandDto)
     {
         return $this->catalogRepository->createBrand($brandDto);
-    }    
+    }
+
+    public function updateBrand($brandDto)
+    {
+        return $this->catalogRepository->updateBrand($id, $brandDto);
+    }
 }

@@ -33,5 +33,10 @@ class AppServiceProvider extends ServiceProvider
             'App\Modules\Catalogs\Contracts\ICatalogRepository',
             'App\Modules\Catalogs\Repositories\CatalogRepository'
         );
+
+        $this->app->bind(
+            'App\Modules\Brands\Contracts\IBrandRepository',
+            'App\Modules\Brands\Repositories\BrandRepository'
+        );
     }
 }
