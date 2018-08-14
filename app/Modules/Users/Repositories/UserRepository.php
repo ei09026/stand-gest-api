@@ -91,4 +91,12 @@ class UserRepository extends BaseRepository implements IUserRepository {
 
         return $user;
     }
+
+    public function getByEmail($email) {
+        return $this->user->where('email', $email)->first();
+    }
+
+    public function getByUsername($username) {
+        return $this->user->where('username', $username)->first();
+    }
 }

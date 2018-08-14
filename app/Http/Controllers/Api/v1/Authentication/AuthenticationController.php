@@ -17,16 +17,27 @@ class AuthenticationController extends ApiController {
     }
 
     public function authenticate(Request $request) {        
-        $email = $request->input('email');
+        $email = $request->input('email'); // email or username
         $password = $request->input('password');
         
-        $user = $this->userRepository->getByEmail($email);
+        $userByEmail = $this->userRepository->getByEmail($email);
+        $userByUsername = $this->userRepository->getByUsername($email);
 
-        if(!$user)
-            return $this->respondFail('email-not-found', trans('auth.email-not-found'));
+        $user = null;
 
-        if(!md5($password) == $user->password)
+        if(!empty($userByEmail)) {
+            $user = $userByEmail;
+        } else if (!empty($userByUsername)) {
+            $user = $userByUsername;
+        }
+
+        if(!$user) {
+            return $this->respondFail('email-not-found', trans('auth.email-username-not-found'));
+        }
+
+        if(md5($password) !== $user->password) {
             return $this->respondFail('wrong-password', trans('auth.wrong-password'));
+        }
 
         $payload = JWTFactory::make(['sub' => $user->id]);
 

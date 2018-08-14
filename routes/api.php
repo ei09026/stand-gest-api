@@ -45,4 +45,9 @@ Route::group(['middleware' => ['jwt.auth']], function() {
         //Catalogs
         Route::post('fuel-types', 'FuelTypesController@postIndex');
     });
+
+    Route::group(['prefix' => 'v1', 'namespace' => 'Api\v1\Vehicles'], function() {
+        //Catalogs
+        Route::post('vehicles', 'VehiclesController@postIndex');
+    });
 });

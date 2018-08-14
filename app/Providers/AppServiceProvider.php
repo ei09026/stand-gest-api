@@ -48,5 +48,10 @@ class AppServiceProvider extends ServiceProvider
             'App\Modules\Users\Contracts\IUserRepository',
             'App\Modules\Users\Repositories\UserRepository'
         );
+
+        $this->app->bind(
+            'App\Modules\Vehicles\Contracts\IVehicleRepository',
+            'App\Modules\Vehicles\Repositories\VehicleRepository'
+        );
     }
 }

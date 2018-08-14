@@ -106,7 +106,7 @@ class UsersController extends ApiController {
 		if (!empty($filter)) {
 			$id = $filter['id'];
 
-			return $this->respondSuccess($this->brandRepository->update($id, $userDto));
+			return $this->respondSuccess($this->userRepository->update($id, $userDto));
 		} else { // create
 			return $this->respondFail('error', 'Id not found');
 		}
