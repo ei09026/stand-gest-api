@@ -31,6 +31,10 @@ class BrandRepository extends BaseRepository implements IBrandRepository {
 
     public function getBrands($filter, $orderBy, $pagination)
     {
+        if (!$pagination) {
+            return $this->brand->get();
+        }
+
         $search = $filter['description'];
         $active = $filter['active'];
 

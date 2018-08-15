@@ -47,20 +47,30 @@ class BrandsController extends ApiController {
 	 */
 	public function retrieve(Request $request)
 	{
-		$filter = [
-			'description' => $request->input('filter.description'),
-			'active' => $request->input('filter.active')
-		];
+		$filter = null;
+		$orderBy = null;
+		$pagination = null;
 
-		$orderBy = [
-			'column' => $request->input('orderBy.column'),
-			'direction' => $request->input('orderBy.direction')
-		];
+		if (!empty($request->input('filter'))) {
+			$filter = [
+				'description' => $request->input('filter.description'),
+				'active' => $request->input('filter.active')
+			];
+		}
 
-		$pagination = [
-			'itemsPerPage' => $request->input('pagination.itemsPerPage'),
-			'page' => $request->input('pagination.page')
-		];
+		if (!empty($request->input('orderBy'))) {
+			$orderBy = [
+				'column' => $request->input('orderBy.column'),
+				'direction' => $request->input('orderBy.direction')
+			];
+		}
+
+		if (!empty($request->input('pagination'))) {
+			$pagination = [
+				'itemsPerPage' => $request->input('pagination.itemsPerPage'),
+				'page' => $request->input('pagination.page')
+			];
+		}
 
         return $this->respondSuccess($this->brandRepository->getBrands($filter, $orderBy, $pagination));
 	}
