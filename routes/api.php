@@ -50,4 +50,9 @@ Route::group(['middleware' => ['jwt.auth']], function() {
         //Catalogs
         Route::post('vehicles', 'VehiclesController@postIndex');
     });
+
+    Route::group(['prefix' => 'v1', 'namespace' => 'Api\v1\Extras'], function() {
+        //Catalogs
+        Route::post('extras', 'ExtrasController@postIndex');
+    });
 });

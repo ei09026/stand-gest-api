@@ -53,5 +53,10 @@ class AppServiceProvider extends ServiceProvider
             'App\Modules\Vehicles\Contracts\IVehicleRepository',
             'App\Modules\Vehicles\Repositories\VehicleRepository'
         );
+
+        $this->app->bind(
+            'App\Modules\Extras\Contracts\IExtraRepository',
+            'App\Modules\Extras\Repositories\ExtraRepository'
+        );
     }
 }
