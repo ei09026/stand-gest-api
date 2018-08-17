@@ -55,4 +55,9 @@ Route::group(['middleware' => ['jwt.auth']], function() {
         //Catalogs
         Route::post('extras', 'ExtrasController@postIndex');
     });
+
+    Route::group(['prefix' => 'v1', 'namespace' => 'Api\v1\Colors'], function() {
+        //Catalogs
+        Route::post('colors', 'ColorsController@postIndex');
+    });
 });

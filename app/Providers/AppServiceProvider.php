@@ -58,5 +58,10 @@ class AppServiceProvider extends ServiceProvider
             'App\Modules\Extras\Contracts\IExtraRepository',
             'App\Modules\Extras\Repositories\ExtraRepository'
         );
+
+        $this->app->bind(
+            'App\Modules\Colors\Contracts\IColorRepository',
+            'App\Modules\Colors\Repositories\ColorRepository'
+        );
     }
 }
