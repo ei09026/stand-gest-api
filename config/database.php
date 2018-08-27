@@ -41,11 +41,11 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'stand-gest'),
-            'username' => env('DB_USERNAME', 'postgres'),
-            'password' => env('DB_PASSWORD', 'admin'),
+            'host' => env('DB_HOST', 'packy.db.elephantsql.com'),
+            'port' => env('DB_PORT', '5432'),
+            'database' => env('DB_DATABASE', 'd6ds6vli3asium'),
+            'username' => env('DB_USERNAME', 'mgxncjvtplzfbw'),
+            'password' => env('DB_PASSWORD', 'Y5ACiWaefArDA0LYNpD70MZrDuUU0Hjy'),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
@@ -56,11 +56,11 @@ return [
 
         'pgsql' => [
             'driver' => 'pgsql',
-            'host' => env('DB_HOST', '127.0.0.1'),
+            'host' => env('DB_HOST', 'ec2-54-217-235-137.eu-west-1.compute.amazonaws.com'),
             'port' => env('DB_PORT', '5432'),
-            'database' => env('DB_DATABASE', 'stand-gest'),
-            'username' => env('DB_USERNAME', 'postgres'),
-            'password' => env('DB_PASSWORD', 'admin'),
+            'database' => env('DB_DATABASE', 'd6ds6vli3asium'),
+            'username' => env('DB_USERNAME', 'mgxncjvtplzfbw'),
+            'password' => env('DB_PASSWORD', '791b9d6171a9442080874c0222b355828e0ba969db615feb5b9a745011cd6af1'),
             'charset' => 'utf8',
             'prefix' => '',
             'schema' => 'public',

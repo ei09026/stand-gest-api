@@ -30,7 +30,10 @@ class ColorRepository extends BaseRepository implements IColorRepository {
     }
 
     public function getColors($filter, $orderBy, $pagination)
-    {;
+    {
+        if (!$pagination) {
+            return $this->color->get();
+        }
 
         $search = $filter['description'];
         $active = $filter['active'];
